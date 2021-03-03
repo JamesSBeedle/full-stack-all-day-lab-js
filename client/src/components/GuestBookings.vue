@@ -21,4 +21,5 @@ import BookingCardVue from './BookingCard.vue'
 </script>
 
 <style lang="css" scoped>
+
 </style>

@@ -26,12 +26,17 @@ const createRouter = function (collection) {
 
   router.post('/', (req, res) => {
     const newData = req.body
-    collection.insertOne(newData)
-    .then(result => res.json(result.ops[0]))
-    .catch((err) => {
-      res.status(500);
-      res.json({ status: 500, error: err });
-    });
+    if (newData.name && newData.email){
+      collection.insertOne(newData)
+      .then(result => res.json(result.ops[0]))
+      .catch((err) => {
+        res.status(500);
+        res.json({ status: 500, error: err });
+      });
+    } else {
+      return res.json({status: 500, error: "Enter a name and email"})
+    }
+    
   })
 
   router.delete('/:id', (req, res) => {
@@ -42,6 +47,17 @@ const createRouter = function (collection) {
         res.status(500);
         res.json({ status: 500, error: err });
       });
+  })
+
+  router.put('/:id', (req, res) => {
+    const id = req.params.id
+    collection.updateOne({_id: ObjectID(id)}, {$set: {checkedIn: true}})
+    .then((result) => res.json(result))
+    .catch((err) => {
+      res.status(500);
+      res.json({ status: 500, error: err });
+    });
+    
   })
 
   

@@ -1,12 +1,23 @@
 <template>
     <section>
         <form @submit.prevent="submitForm" method='post'>
-            <label for="name">Enter guest name: </label>
-            <input type="text" name="name" id="name" v-model="name">
+            <div class="input-class">
+                <label for="name">Enter name: </label>
+                <input type="text" name="name" id="name" v-model="name">
+            </div>
+            
+            <div class="input-class">
+                <label for="email">Enter email: </label>
+                <input type="email" name="email" id="email" v-model="email">
+            </div>
 
-            <label for="email">Enter guest email: </label>
-            <input type="email" name="email" id="email" v-model="email">
-            <input type="submit" value="Add Booking">
+            <div>
+                <input id="button" type="submit" value="Add Booking">
+            </div>
+
+            <b><p id="error-message" v-if="this.errorMessage" >{{this.errorMessage}}</p></b>
+            
+            
         </form>
     </section>
 </template>
@@ -20,18 +31,24 @@ import {eventBus} from '@/main.js'
         data(){
             return {
                 name: null,
-                email: null
+                email: null,
+                errorMessage: ""
             }
         },
         methods: {
             submitForm(){
-                const newBooking = {
-                    name: this.name,
-                    email: this.email,
-                    checkedIn: false
+                if (this.name && this.email){
+                    const newBooking = {
+                        name: this.name,
+                        email: this.email,
+                        checkedIn: false
+                    }
+                    BookingService.postNewBooking(newBooking)
+                    .then(res => eventBus.$emit('new-booking', res))
+                } else {
+                    this.errorMessage = 'Enter a name and email'
                 }
-                BookingService.postNewBooking(newBooking)
-                .then(res => eventBus.$emit('new-booking', res))
+                
             }
         }
     
@@ -39,5 +56,36 @@ import {eventBus} from '@/main.js'
 </script>
 
 <style lang="css" scoped>
+*{
+    font-family: cursive;
+}
+section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.input-class{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+form{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    background-color: plum;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#button {
+    background-color: grey;
+    margin-top: 10px;
+
+}
+
+#error-message{
+    color: red;
+    font-size: large;
+}
 
 </style>

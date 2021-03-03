@@ -17,5 +17,10 @@ export default{
         return fetch(baseURL+id,{
             method: 'DELETE'
         })
+    },
+    updateBooking(id){
+        return fetch(baseURL+id, {
+            method: 'PUT'
+        })
     }
 }
