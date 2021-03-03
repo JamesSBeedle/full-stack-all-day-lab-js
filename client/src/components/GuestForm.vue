@@ -30,10 +30,8 @@ import {eventBus} from '@/main.js'
                     email: this.email,
                     checkedIn: false
                 }
-                eventBus.$emit('new-booking', newBooking)
-                // BookingService.postNewBooking(newBooking)
-                // .then(res => eventBus.$emit('new-booking', res))
-                
+                BookingService.postNewBooking(newBooking)
+                .then(res => eventBus.$emit('new-booking', res))
             }
         }
     

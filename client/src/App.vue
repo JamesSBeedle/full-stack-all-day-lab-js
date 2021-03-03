@@ -9,6 +9,8 @@
 
 <script>
 import GuestFormVue from './components/GuestForm.vue'
+import BookingService from '@/services/BookingServices.js'
+ 
 
 import {eventBus} from '@/main.js'
 import GuestBookingsVue from './components/GuestBookings.vue'
@@ -24,6 +26,14 @@ export default {
       console.log('in bus');
       this.bookings.push(booking)
     })
+
+    eventBus.$on('delete-booking', (id) => {
+      const index = this.bookings.findIndex(booking => booking._id === id)
+      this.bookings.splice(index, 1)
+      })
+
+    BookingService.getBookings()
+    .then(bookings => this.bookings = bookings)
 
   },
   

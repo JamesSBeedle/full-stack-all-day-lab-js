@@ -11,7 +11,7 @@
             </form>
 
             <button v-if="booking.checkedIn">Check Out</button>
-            <button v-if="!booking.checkedIn">Delete Booking</button>
+            <button v-if="!booking.checkedIn" @click="deleteBooking" >Delete Booking</button>
             <br>
             
         </section>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import BookingService from '@/services/BookingServices.js'
+
 import {eventBus} from '@/main.js'
 
     export default {
@@ -30,6 +32,11 @@ import {eventBus} from '@/main.js'
                 // let index = this.booking._id
                 // console.log('indexx', this.booking);
                 // eventBus.$emit('checked-in', updatedBooking)
+            },
+
+            deleteBooking() {
+                BookingService.deleteBooking(this.booking._id)
+                .then(()=> eventBus.$emit('delete-booking', this.booking._id))
             }
             
         }

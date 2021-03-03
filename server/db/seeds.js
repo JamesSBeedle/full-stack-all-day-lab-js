@@ -14,7 +14,7 @@ db.bookings.insertMany([
     },
     {
         name: 'Harrison Booth',
-        email: 'harrison_loves_jaguars@codecland.com',
+        email: 'harrison_loves_moths@codecland.com',
         checkedIn: true
     },
 ])
