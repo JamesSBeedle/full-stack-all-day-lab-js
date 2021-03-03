@@ -23,7 +23,7 @@ import {eventBus} from '@/main.js'
 
     export default {
         name: 'booking-card',
-        props: ['booking'],
+        props: ['booking'], 
 
         methods: {
             checkedIn(){
