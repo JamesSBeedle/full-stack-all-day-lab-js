@@ -26,12 +26,6 @@ import {eventBus} from '@/main.js'
         name: 'booking-card',
         props: ['booking'], 
 
-        data(){
-            return {
-                currentStatus: null
-            }
-        },
-
         methods: {
             checkedIn(){
                 let index = this.booking._id
@@ -40,30 +34,12 @@ import {eventBus} from '@/main.js'
                 .then(result => eventBus.$emit('checked-in', index))
                 
             },
-            changeNumber(){
-                let index = this.booking._id
-                eventBus.$emit('update-number', index)
-                console.log('index', index);
-            },
 
             deleteBooking() {
                 BookingService.deleteBooking(this.booking._id)
                 .then(()=> eventBus.$emit('delete-booking', this.booking._id))
             }
             
-        },
-        computed:{
-            getCheckoutStatus: function(){
-                if (this.booking.checkedIn ==1){
-                    this.currentStatus = "Check In"
-                }
-                if (this.booking.checkedIn ==2){
-                    this.currentStatus = "Check Out"
-                }
-                if (this.booking.checkedIn ==3){
-                    this.currentStatus = ""
-                }
-            }
         }
         
     }
