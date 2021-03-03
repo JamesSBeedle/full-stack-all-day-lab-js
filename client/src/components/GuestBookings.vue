@@ -1,23 +1,24 @@
 <template>
     <article>
         <h1>All Bookings</h1>
-        <section class="booking-info">
-            <h2>Name:</h2>
-            <h3>Email:</h3>
-        </section>
+        <booking-card v-for="(booking, index) in bookings" :key="index" :booking="booking">
+        </booking-card>
     </article>
 </template>
 
 <script>
+import BookingCardVue from './BookingCard.vue'
     export default {
-        name: 'guest-bookings'
+        name: 'guest-bookings',
+        props: ['bookings'],
+
+        components:{
+            'booking-card': BookingCardVue
+        }
+
         
     }
 </script>
 
 <style lang="css" scoped>
-.booking-info{
-    
-
-}
 </style>
