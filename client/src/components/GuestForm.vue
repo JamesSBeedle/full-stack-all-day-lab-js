@@ -27,7 +27,8 @@ import {eventBus} from '@/main.js'
             submitForm(){
                 const newBooking = {
                     name: this.name,
-                    email: this.email
+                    email: this.email,
+                    checkedIn: false
                 }
                 eventBus.$emit('new-booking', newBooking)
                 // BookingService.postNewBooking(newBooking)
